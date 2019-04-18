@@ -17,33 +17,72 @@ class GUI:
         self.HEIGHT = 700
         self.WIDTH = 700
 
-        self.canvas = tk.Canvas(master, height=self.HEIGHT, width=self.WIDTH).pack()
+        self.mainframe = tk.Frame(master, bg = '#FFFFFF')
+        self.mainframe.pack()
 
-        self.label = tk.Label(master, text="Select to choose a file. \tDetect text to process image.", bg='#B3CBF1', borderwidth = 5).place(relx = 0, rely = 0, relwidth = 1)
+        self.canvas = tk.Canvas(self.mainframe, width = self.WIDTH, height = self.HEIGHT, bg = '#FFFFFF')
+        self.canvas.pack()
 
-        self.label1 = tk.Label(master, text="Original Image", bg='#C0C0C0', borderwidth = 5).place(relx = 0.025, rely = 0.05, relwidth = 0.45)
-        self.frame1 = tk.Canvas(master, bg='#808080', borderwidth=5).place(relx=0.025, rely=0.095, relwidth=0.45,relheight=0.4)
+        #
+        self.frame1 = tk.Frame(self.canvas, bg = '#B3CBF1')
+        self.frame1.grid(row = 1, columnspan = 2, ipadx = 30, ipady = 5, pady = 15)
 
-        self.label2 = tk.Label(master, text="Detected Text Regions", bg='#C0C0C0', borderwidth = 5).place(relx = 0.525, rely = 0.05, relwidth = 0.45)
-        self.frame2 = tk.Canvas(master, bg='#808080', borderwidth=5).place(relx=0.525, rely=0.095, relwidth=0.45,relheight=0.4)
+        self.label1 = tk.Label(self.frame1, text = "\t***\tSelect an image file.\t*** \tDetect text to process.\t***\t", bg='#B3CBF1')
+        self.label1.pack(fill = 'x', side = 'left', padx = 100, anchor = 'center', expand = True)
 
-        self.label1 = tk.Label(master, text="Recognized Text", bg='#C0C0C0', borderwidth = 5).place(relx = 0.025, rely = 0.51, relwidth = 0.45)
-        self.frame1 = tk.Canvas(master, bg='#808080', borderwidth=5).place(relx=0.025, rely=0.555, relwidth=0.45,relheight=0.4)
+        #
+        self.frame2 = tk.Frame(self.canvas, bg = '#FFFFFF')
+        self.frame2.grid(row = 2, columnspan = 2, pady = 2)
 
-        self.label2 = tk.Label(master, text="Translated Text", bg='#C0C0C0', borderwidth = 5).place(relx = 0.525, rely = 0.51, relwidth = 0.45)
-        self.frame2 = tk.Canvas(master, bg='#808080', borderwidth=5).place(relx=0.525, rely=0.555, relwidth=0.45,relheight=0.4)
+        self.label2 = tk.Label(self.frame2, text = "Original Image", bg='#FFFFFF')
+        self.label2.pack(side = 'left', ipadx = 150, padx = 38, fill = 'x', expand = True, anchor = 'center')
 
-        self.select_btn = tk.Button(master, text="Select", command=self.select_img)
-        self.select_btn.pack(side = 'left', padx = 5, pady = 5)
+        self.label3 = tk.Label(self.frame2, text = "Detected Regions", bg='#FFFFFF')
+        self.label3.pack(side = 'right', ipadx = 146, padx = 39, fill = 'x', expand = True, anchor = 'center')
 
-        self.detect_btn = tk.Button(master, text="Detect Text", command=self.detect)
-        self.detect_btn.pack(side = 'left', padx = 5, pady = 5)
+        #
+        self.canvas1 = tk.Canvas(self.canvas, bg='#808080')
+        self.canvas1.grid(row = 3, column = 0, pady = 5)
 
-        self.detect_btn = tk.Button(master, text="Translate Text", command=self.translate)
-        self.detect_btn.pack(side = 'left', padx = 5, pady = 5)
+        self.canvas2 = tk.Canvas(self.canvas, bg='#808080')
+        self.canvas2.grid(row = 3, column = 1, pady = 5)
 
-        self.quit_btn = tk.Button(master, text="Quit", command=master.quit)
-        self.quit_btn.pack(side='right', padx = 5, pady = 5)
+        #
+        self.frame3 = tk.Frame(self.canvas, bg = '#FFFFFF')
+        self.frame3.grid(row = 4, columnspan = 2, pady = 5)
+
+        self.label4 = tk.Label(self.frame3, text = "Detected Text", bg='#FFFFFF')
+        self.label4.pack(side = 'left', ipadx = 150, padx = 38, fill = 'x', expand = True, anchor = 'center')
+
+        self.label5 = tk.Label(self.frame3, text = "Translated Text", bg='#FFFFFF')
+        self.label5.pack(side = 'right', ipadx = 146, padx = 39, fill = 'x', expand = True, anchor = 'center')
+
+        #
+        self.canvas3 = tk.Canvas(self.canvas, bg='#808080')
+        self.canvas3.grid(row = 5, column = 0, pady = 5)
+
+        self.canvas4 = tk.Canvas(self.canvas, bg='#808080')
+        self.canvas4.grid(row = 5, column = 1, pady = 5)
+
+        #
+        self.select_btn = tk.Button(self.frame1, text="Select", command=self.select_img)
+        self.select_btn.pack(side = 'right', ipadx = 40, padx = 40)
+
+        #
+        self.detect_btn = tk.Button(self.mainframe, text="Detect Light Text", command=self.detect)
+        self.detect_btn.pack(side = 'left', ipadx = 10, padx = 10, pady = 10)
+
+        self.detect_btn_inv = tk.Button(self.mainframe, text="Detect Dark Text", command=self.detectinv)
+        self.detect_btn_inv.pack(side = 'left', ipadx = 10, padx = 10, pady = 10)
+
+        self.translate_btn = tk.Button(self.mainframe, text="Translate Text", command=self.print_translated_text)
+        self.translate_btn.pack(side = 'left', anchor = 'center', ipadx = 10, padx = 10, pady = 10)
+
+        self.quit_btn = tk.Button(self.mainframe, text="Quit", command=master.quit)
+        self.quit_btn.pack(side = 'right', anchor = 'center', padx = 10, pady = 10)
+
+    def testdef(self):
+        print('works')
 
     def select_img(self):
         self.file_path = filedialog.askopenfilename()
@@ -63,19 +102,21 @@ class GUI:
             h = im.size[1]
             w = im.size[0]
 
-            imgscale = min((int(0.45 * self.WIDTH)/w), (int(0.4 * self.HEIGHT)/h))
+            # size of the canvas
+            cw = self.canvas3.winfo_width()
+            ch = self.canvas3.winfo_height()
+
+            imgscale = min((int(cw)/w), (int(ch)/h))
             im = im.resize((int(imgscale * w), int(imgscale * h)), Image.ANTIALIAS)
 
             imgtk = ImageTk.PhotoImage(im)
 
             # Put it in the display window
-            imgdis = tk.Canvas(self.master, bd=0, highlightthickness=0)
-            imgdis.create_image(0, 0, image=imgtk, anchor= 'nw', tags="IMG")
-            imgdis.place(relx=0.025, rely=0.1, relwidth=0.45,relheight=0.4)
+            self.canvas1.create_image((cw-1)/2, (ch-1)/2, image=imgtk, anchor= 'center', tags="IMG")
 
             # save image as reference
             # http://effbot.org/pyfaq/why-do-my-tkinter-images-not-appear.htm
-            imgdis.image = imgtk
+            self.canvas1.image = imgtk
 
             return self.file_path
 
@@ -85,10 +126,7 @@ class GUI:
 
             messagebox.showerror(error, emessage + "Error: " + str(e))
 
-    def detect(self):
-
-        detected = tdet.detect_text(self.file_path)
-
+    def img2canvas(self, detected):
         # https://stackoverflow.com/questions/28670461/read-an-image-with-opencv-and-display-it-with-tkinter
         # Rearrange the color channel
         b, g, r = cv2.split(detected)
@@ -101,25 +139,67 @@ class GUI:
         h = dim.size[1]
         w = dim.size[0]
 
-        imgscale = min((int(0.45 * self.WIDTH) / w), (int(0.4 * self.HEIGHT) / h))
+        # size of the canvas
+        cw = self.canvas3.winfo_width()
+        ch = self.canvas3.winfo_height()
+
+        imgscale = min((int(cw) / w), (int(ch) / h))
         dim = dim.resize((int(imgscale * w), int(imgscale * h)), Image.ANTIALIAS)
 
         dimgtk = ImageTk.PhotoImage(dim)
 
         # Put it in the display window
-        dimgdis = tk.Canvas(self.master, bd=0, highlightthickness=0)
-        dimgdis.create_image(0, 0, image=dimgtk, anchor='nw', tags="IMG")
-        dimgdis.place(relx=0.525, rely=0.1, relwidth=0.45, relheight=0.4)
+        self.canvas2.create_image((cw - 1) / 2, (ch - 1) / 2, image=dimgtk, anchor='center', tags="IMG")
 
         # save image as reference
         # http://effbot.org/pyfaq/why-do-my-tkinter-images-not-appear.htm
-        dimgdis.image = dimgtk
+        self.canvas2.image = dimgtk
 
-    def print2window(self):
-        print('test')
+    def detect(self):
+        detected = tdet.detect_text(self.file_path)
+        self.img2canvas(detected)
 
-    def translate(self):
-        print("test")
+    def detectinv(self):
+        detected = tdet.detect_text_inv(self.file_path)
+        self.img2canvas(detected)
+
+    def print_detected_text(self):
+        # clear old text
+        self.canvas3.delete('all')
+
+        # size of the canvas
+        w = self.canvas3.winfo_width()
+        h = self.canvas3.winfo_height()
+
+        text = "Hello World\nCanvas 3"
+
+        # find the length of the string and determine how many lines are needed
+        x = w - len(text)
+
+        xplace = (x-1)/2
+
+        yplace = (h-1)/2
+
+        self.canvas3.create_text(xplace, yplace, text = text, fill="black", font="Times 10", width = w - 50, anchor = 'center')
+
+    def print_translated_text(self):
+        # clear old text
+        self.canvas4.delete('all')
+
+        # size of the canvas
+        w = self.canvas4.winfo_width()
+        h = self.canvas4.winfo_height()
+
+        text = "Hello World\nCanvas 4"
+
+        # find the length of the string and determine how many lines are needed
+        x = w - len(text)
+
+        xplace = (x-1)/2
+
+        yplace = (h-1)/2
+
+        self.canvas4.create_text(xplace, yplace, text = text, fill="black", font="Times 10", width = w - 50, anchor = 'center')
 
 root = tk.Tk()
 gui = GUI(root)

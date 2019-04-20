@@ -2,8 +2,11 @@
 Very very simple text detection and recognition 
 
 April 19, 2019
+
 Use detect light text for testing
+
 it works for light and dark, may need mods for dark tho
+
 other buttons are irrelevant atm
 
 ### Todo:

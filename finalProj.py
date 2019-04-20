@@ -72,7 +72,7 @@ class GUI:
         self.detect_btn = tk.Button(self.mainframe, text="Detect Light Text", command=self.detect)
         self.detect_btn.pack(side = 'left', ipadx = 10, padx = 10, pady = 10)
 
-        self.detect_btn_inv = tk.Button(self.mainframe, text="Detect Dark Text", command=self.detectinv)
+        self.detect_btn_inv = tk.Button(self.mainframe, text="Detect Dark Text", command=self.detect2)
         self.detect_btn_inv.pack(side = 'left', ipadx = 10, padx = 10, pady = 10)
 
         self.translate_btn = tk.Button(self.mainframe, text="Translate Text", command=self.print_translated_text)
@@ -163,6 +163,10 @@ class GUI:
         detected = tdet.detect_text_inv(self.file_path)
         self.img2canvas(detected)
 
+    def detect2(self):
+        detected = tdet.detect_text2(self.file_path)
+        self.img2canvas(detected)
+
     def print_detected_text(self):
         # clear old text
         self.canvas3.delete('all')
@@ -173,11 +177,11 @@ class GUI:
 
         text = "Hello World\nCanvas 3"
 
-        # find the length of the string and determine how many lines are needed
+        # find the length of the string
+        # for placement
         x = w - len(text)
 
         xplace = (x-1)/2
-
         yplace = (h-1)/2
 
         self.canvas3.create_text(xplace, yplace, text = text, fill="black", font="Times 10", width = w - 50, anchor = 'center')
@@ -190,13 +194,14 @@ class GUI:
         w = self.canvas4.winfo_width()
         h = self.canvas4.winfo_height()
 
-        text = "Hello World\nCanvas 4"
+        # placeholder for testing
+        text = "ora"
 
-        # find the length of the string and determine how many lines are needed
+        # find the length of the string
+        # for placement
         x = w - len(text)
 
         xplace = (x-1)/2
-
         yplace = (h-1)/2
 
         self.canvas4.create_text(xplace, yplace, text = text, fill="black", font="Times 10", width = w - 50, anchor = 'center')

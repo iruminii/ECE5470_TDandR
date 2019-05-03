@@ -23,6 +23,13 @@ predict.py needs keras so download that too
 - ~~Add trained model and prediction file~~
 - ~~Add translator API~~
 - Finish up the GUI once everythings working
+- If prediction confidence < whatever %, output '-' or something (bc it doesn't detect symbols)
+- Use images with:
+  - symbols in text? (emnist is only letters + numbers)
+  - simple/clean backgrounds?
+  - only light characters on dark backgrounds?
+  - if simplifying to ^, make a canvas that allows user to draw words and detect that?
+  - if not, fill in gradient for character recognition
 
 ##### Thicken letters, don't detect non-alphanumeric characters
 

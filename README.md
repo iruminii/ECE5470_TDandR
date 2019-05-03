@@ -26,6 +26,7 @@ predict.py needs keras so download that too
 - '!' predicts as 'q' with 89.733 confidence, needs fixing
 - Use images with:
   - symbols in text? (emnist is only letters + numbers)
+  - capitalize entire string? (recognition for upper/lowercase kinda bad)
   - simple/clean backgrounds?
   - only light characters on dark backgrounds?
   - if simplifying to ^, make a canvas that allows user to draw words and detect that?

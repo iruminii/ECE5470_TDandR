@@ -9,11 +9,13 @@ it works for light and dark, may need mods for dark tho
 
 other buttons are irrelevant atm
 
+we'll figure it out tomorrow/this weekend
+
 ### Todo:
-- Improve text segmentation
+- ~~Improve text segmentation~~
 - Improve ROI detection/decision
-- Add trained model and prediction file 
-- Add translator API
+- ~~Add trained model and prediction file ~~
+- ~~Add translator API~~
 - Finish up the GUI once everythings working
 
 ##### Thicken letters, don't detect non-alphanumeric characters

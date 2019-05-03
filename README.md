@@ -23,7 +23,7 @@ predict.py needs keras so download that too
 - ~~Add trained model and prediction file~~
 - ~~Add translator API~~
 - Finish up the GUI once everythings working
-- If prediction confidence < whatever %, output '-' or something (bc it doesn't detect symbols)
+- '!' predicts as 'q' with 89.733 confidence, needs fixing
 - Use images with:
   - symbols in text? (emnist is only letters + numbers)
   - simple/clean backgrounds?

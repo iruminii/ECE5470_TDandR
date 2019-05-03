@@ -13,6 +13,8 @@ we'll figure it out tomorrow/this weekend
 
 model.h5 is on gdrive bc its too big btw
 
+predict.py needs keras so download that too 
+
 ### Todo:
 - ~~Improve text segmentation~~
 - Improve ROI detection/decision

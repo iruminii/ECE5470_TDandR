@@ -9,6 +9,8 @@ it works for light and dark, may need mods for dark tho
 
 other buttons are irrelevant atm
 
+May 2, 2019
+
 we'll figure it out tomorrow/this weekend
 
 model.h5 is on gdrive bc its too big btw

@@ -3,9 +3,7 @@ Very very simple text detection and recognition
 
 April 19, 2019
 
-Use detect light text for testing
-
-it works for light and dark, may need mods for dark tho
+it works for light and dark bc of gradient
 
 other buttons are irrelevant atm
 
@@ -24,6 +22,7 @@ predict.py needs keras so download that too
 - ~~Add translator API~~
 - Finish up the GUI once everythings working
 - '!' predicts as 'q' with 89.733 confidence, needs fixing
+- add finding centers and split string into test detection file
 - Use images with:
   - symbols in text? (emnist is only letters + numbers)
   - capitalize entire string? (recognition for upper/lowercase kinda bad)

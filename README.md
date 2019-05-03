@@ -14,7 +14,7 @@ we'll figure it out tomorrow/this weekend
 ### Todo:
 - ~~Improve text segmentation~~
 - Improve ROI detection/decision
-- ~~Add trained model and prediction file ~~
+- ~~Add trained model and prediction file~~
 - ~~Add translator API~~
 - Finish up the GUI once everythings working
 

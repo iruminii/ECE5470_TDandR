@@ -101,6 +101,8 @@ def predict(impath, mapping, model):
     #            'confidence': str(max(out[0]) * 100)[:6]}
     response = chr(mapping[(int(np.argmax(out, axis=1)[0]))])
 
+    #print('character: ' + response + ' / confidence: ' + str(max(out[0]) * 100)[:6])
+
     #print("response = ", response)
     return response
     #return jsonify(response)
@@ -118,7 +120,8 @@ def guesstext():
     model = load_model(path)
 
     #image folder path
-    imfilepath = r'C:\Users\Oikawa\Desktop\ECE5470Project\bbroi'
+    #imfilepath = r'C:\Users\Oikawa\Desktop\ECE5470Project\bbroi'
+    imfilepath = r'C:\Users\Oikawa\Desktop\ECE5470Project\characters'
 
     # empty array to hold characters
     predictions = np.array([])
@@ -128,13 +131,18 @@ def guesstext():
     for filename in os.listdir(imfilepath):
         if filename.endswith(".jpg"):
             # make predictions
-            guess = predict(imfilepath + '\char%d.jpg' % cnt, mapping, model)
+            guess = predict(imfilepath + r'\char%d.jpg' % cnt, mapping, model)
             cnt = cnt + 1
             predictions = np.append(predictions, guess)
             continue
         else:
             pred_text = ''.join(predictions)
 
+    print(pred_text)
     return str(pred_text)
 
+string = guesstext()
+
+print(len(string))
+print(string)
 

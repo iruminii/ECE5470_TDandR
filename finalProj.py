@@ -5,7 +5,14 @@ from tkinter import filedialog
 from tkinter import messagebox
 from PIL import ImageTk
 from PIL import Image
-import text_detection as tdet
+import test as tdet
+from googletrans import Translator as Trans
+#import text_detection as tdet
+#import predict
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import time
+
 
 #https://python-textbok.readthedocs.io/en/1.0/Introduction_to_GUI_Programming.html
 class GUI:
@@ -72,7 +79,7 @@ class GUI:
         self.detect_btn = tk.Button(self.mainframe, text="Detect Light Text", command=self.detect)
         self.detect_btn.pack(side = 'left', ipadx = 10, padx = 10, pady = 10)
 
-        self.detect_btn_inv = tk.Button(self.mainframe, text="Detect Dark Text", command=self.detect2)
+        self.detect_btn_inv = tk.Button(self.mainframe, text="Detect Dark Text", command=self.detect)
         self.detect_btn_inv.pack(side = 'left', ipadx = 10, padx = 10, pady = 10)
 
         self.translate_btn = tk.Button(self.mainframe, text="Translate Text", command=self.print_translated_text)
@@ -156,26 +163,23 @@ class GUI:
         self.canvas2.image = dimgtk
 
     def detect(self):
-        detected = tdet.detect_text(self.file_path)
+        # image, text
+        #detected, detectedtext= tdet.detect_text(self.file_path)
+        #detected = tdet.detect_text(self.file_path)
+        detected, self.detectedtext = tdet.detect_text(self.file_path)
         self.img2canvas(detected)
-
-    def detectinv(self):
-        detected = tdet.detect_text_inv(self.file_path)
-        self.img2canvas(detected)
-
-    def detect2(self):
-        detected = tdet.detect_text2(self.file_path)
-        self.img2canvas(detected)
+        self.print_detected_text()
 
     def print_detected_text(self):
         # clear old text
         self.canvas3.delete('all')
 
+        # get detected text
+        text = str(self.detectedtext)
+
         # size of the canvas
         w = self.canvas3.winfo_width()
         h = self.canvas3.winfo_height()
-
-        text = "Hello World\nCanvas 3"
 
         # find the length of the string
         # for placement
@@ -184,27 +188,44 @@ class GUI:
         xplace = (x-1)/2
         yplace = (h-1)/2
 
+        # add text to canvas
         self.canvas3.create_text(xplace, yplace, text = text, fill="black", font="Times 10", width = w - 50, anchor = 'center')
+
+    def translate_text(self):
+        # translator library
+        translator = Trans()
+
+        # put detected text here
+        # placeholder string
+        #og_text = 'Hello'
+        og_text = str(self.detectedtext)
+
+        # src = source language, dest = destination language
+        translated_text = translator.translate(og_text, src = 'en', dest='it')
+
+        # return translated text
+        return translated_text.text
 
     def print_translated_text(self):
         # clear old text
         self.canvas4.delete('all')
 
+        # get translated text
+        translatedtext = self.translate_text()
+
         # size of the canvas
         w = self.canvas4.winfo_width()
         h = self.canvas4.winfo_height()
 
-        # placeholder for testing
-        text = "ora"
-
         # find the length of the string
         # for placement
-        x = w - len(text)
+        x = w - len(translatedtext)
 
         xplace = (x-1)/2
         yplace = (h-1)/2
 
-        self.canvas4.create_text(xplace, yplace, text = text, fill="black", font="Times 10", width = w - 50, anchor = 'center')
+        # add text to canvas
+        self.canvas4.create_text(xplace, yplace, text = translatedtext, fill="black", font="Times 10", width = w - 50, anchor = 'center')
 
 root = tk.Tk()
 gui = GUI(root)

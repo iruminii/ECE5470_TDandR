@@ -90,6 +90,7 @@ def detect_text(file):
     # get threshold
     _, th = cv2.threshold(grad, 0.0, 255.0, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
+    # https://stackoverflow.com/questions/50777688/finding-contours-with-lines-of-text-in-opencv
     # block of text
     # --- choosing the right kernel
     # --- kernel size of 3 rows (to join dots above letters 'i' and 'j')
@@ -157,20 +158,34 @@ def detect_text(file):
 
             wcnt = wcnt + 1
             roi.append([y, y2, x, x2])
+            print('roi = ', roi)
             cv2.rectangle(I, (x, y), (x2, y2), (0, 255, 0), 1)
+    print('roi outside = ', roi)
 
     # use later for character recognition
-    text, sentence = tess_detect(path)
+    text, sentence = tess_detect(path, I, roi)
 
     return I, text, sentence
 
-def tess_detect(imfilepath):
+def tess_detect(imfilepath, I, roi):
 
     pyt.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
+    # oem 1 = LSTM
+    # psm 7 = line of text
     config = ("-l eng --oem 1 --psm 7")
 
+    # holds sentence string
     sen = ''
+
+    # counts number of lines processed
+    linecnt = 0
+
+    # print text to image
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    fontScale = 0.75
+    fontColor = (0, 255, 255)
+    lineType = 1
 
     for filename in os.listdir(imfilepath):
         if filename.endswith(".jpg"):
@@ -180,10 +195,14 @@ def tess_detect(imfilepath):
             # get text from image
             text = pyt.image_to_string(img, config=config)
 
+            #cv2.putText(I, text, (roi[linecnt][2],roi[linecnt][0]), font, fontScale, fontColor, lineType)
+
             # append text to list of all words
             sen = np.append(sen, text)
 
-        # if another roi, add \n to indicate new line
+        linecnt = linecnt + 1
+
+        # if another roi in dir, add \n to indicate new line
         sen = np.append(sen, '\n')
 
     # join list to make string
